@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router";
 import request from "../../util/request";
 
+
 export default function GameDetails() {
 
     const { gameId } = useParams();
