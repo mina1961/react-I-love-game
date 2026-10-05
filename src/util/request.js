@@ -20,5 +20,8 @@ export default async function request(path = "/", method = "GET", data = null) {
     if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
     }
+    if (response.status === 204) {
+        return null;
+    }
     return await response.json();
 }
