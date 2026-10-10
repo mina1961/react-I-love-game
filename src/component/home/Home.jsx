@@ -6,11 +6,25 @@ export default function Home() {
     const [latestGames, setLatestGames] = useState([]);
 
     useEffect(() => {
-        // Fetch latest games from the API
-        request(`/games?order=created_at.desc&limit=3`)
-            .then(result => setLatestGames(result))
-            .catch(err => alert(err));
-    }, []);
+    const abortController = new AbortController();
+
+    request(
+        "/games?order=created_at.desc&limit=3",
+        "GET",
+        null,
+        { signal: abortController.signal }
+    )
+        .then(setLatestGames)
+        .catch(error => {
+            if (error.name !== "AbortError") {
+                // console.error(error);
+            }
+        });
+
+    return () => {
+        abortController.abort();
+    };
+}, []);
     return (
         <section id="welcome-world">
                 <div className="welcome-message">

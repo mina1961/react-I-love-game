@@ -15,7 +15,7 @@ export default function Header() {
 
                     {/* Logged-in users */}
                     <div id="user">
-                        <Link to="/add-game">Add Game</Link>
+                        <Link to="/game/create">Add Game</Link>
                         <Link to="/logout">Logout</Link>
                     </div>
 
