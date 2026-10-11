@@ -17,8 +17,7 @@ function App() {
     }
     return (
         <>
-            <Header />
-            {user && <p>Welcome, {user.email}!</p>}
+            <Header isAuthenticated={!!user} user={user} onLogout={() => setUser(null)} />
 
             <Routes>
                 <Route path="/" element={<Home />} />
@@ -27,7 +26,7 @@ function App() {
                 <Route path="/game/create" element={<GameCreate />} />
                 <Route path="/games/:gameId/edit" element={<GameEdit />} />
                 <Route path="/register" element={<Register onRegister={userAouthHandler} user={user} />} />
-                <Route path="/login" element={<Login />} />
+                <Route path="/login" element={<Login onLogin={userAouthHandler} user={user} />} />
             </Routes>
 
             <Footer />
