@@ -23,7 +23,8 @@ const initialValues = {
             [e.target.name]: e.target.value
         }));
     };
-        const submitAction = async () => {
+        const submitAction = async (e) => {
+            e.preventDefault();
             try {
                 await request("/games", "POST", {
                     ...values,
@@ -37,7 +38,7 @@ const initialValues = {
 
     return (
         <section id="add-page">
-            <form id="add-new-game" >
+            <form id="add-new-game" onSubmit={submitAction}>
                 <div className="container">
 
                     <h1>Add New Game</h1>

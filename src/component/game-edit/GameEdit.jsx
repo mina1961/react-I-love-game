@@ -51,8 +51,8 @@ async function editGameHandler(e) {
     try {
         await request(
             `/games?id=eq.${gameId}`,
-            "PATCH",
-            data
+            "PUT",
+            game
         );
 
         navigate(`/games/${gameId}`);
