@@ -4,11 +4,11 @@ export default function Register() {
 
     const [user, setUser] = useState(null);
     const navigate = useNavigate();
-    const rgisterHandler =(e) => {
+    const rgisterAction =(formData) => {
         // Prevent the default form submission behavior
-        e.preventDefault();
+        
         // extract form data
-        const formData = new FormData(e.target);
+        
         const email = formData.get("email");
         const password = formData.get("password");
         const confirmPassword = formData.get("confirm-password");
@@ -29,14 +29,14 @@ export default function Register() {
         setUser({ email });
 
         // Redirect to the home page
-        navigate("/");
+        // navigate("/");
     }
     return (
         <>
         {user && <p>Welcome, {user.email}!</p>}
         {/* Register Page(Only for Guest users ) */}
         <section id="register-page" className="content auth">
-            <form id="register" onSubmit={rgisterHandler}>
+            <form id="register" action={rgisterAction}>
                 <div className="container">
                     <div className="brand-logo"></div>
                     <h1>Register</h1>
