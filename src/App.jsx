@@ -1,5 +1,6 @@
 import { Route, Routes } from "react-router";
 import { useState } from "react";
+import { useNavigate } from "react-router";
 import Catalog from "./component/catalog/Catalog";
 import Footer from "./component/footer/Footer";
 import Header from "./component/header/Header";
@@ -9,16 +10,20 @@ import GameCreate from "./component/game-create/GameCreate";
 import GameEdit from "./component/game-edit/GameEdit";
 import Register from "./component/register/register";
 import Login from "./component/login/Login";
+import Logout from "./component/logout/Logout";
 
 function App() {
     const [user, setUser] = useState(null);
+    
     const userAouthHandler = (userData) => {
         setUser(userData);
     }
-    
+    const logoutAction = () => {
+        setUser(null);
+    }
     return (
         <>
-            <Header isAuthenticated={!!user} user={user} onLogout={() => setUser(null)} />
+            <Header isAuthenticated={!!user} />
 
             <Routes>
                 <Route path="/" element={<Home />} />
@@ -28,6 +33,7 @@ function App() {
                 <Route path="/games/:gameId/edit" element={<GameEdit />} />
                 <Route path="/register" element={<Register onRegister={userAouthHandler} user={user} />} />
                 <Route path="/login" element={<Login onLogin={userAouthHandler} user={user} />} />
+                <Route path="/logout" element={<Logout onLogout={logoutAction} />} />
             </Routes>
 
             <Footer />
