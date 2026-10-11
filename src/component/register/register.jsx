@@ -1,9 +1,42 @@
-
+import { useState } from "react";
+import { useNavigate } from "react-router";
 export default function Register() {
+
+    const [user, setUser] = useState(null);
+    const navigate = useNavigate();
+    const rgisterHandler =(e) => {
+        // Prevent the default form submission behavior
+        e.preventDefault();
+        // extract form data
+        const formData = new FormData(e.target);
+        const email = formData.get("email");
+        const password = formData.get("password");
+        const confirmPassword = formData.get("confirm-password");
+
+        // You can now use the extracted form data (email, password, confirmPassword)
+        console.log({ email, password, confirmPassword });
+
+        // Basic validation
+        if (password !== confirmPassword) {
+            alert("Passwords do not match!");
+            return;
+        }
+        if (!email || !password || !confirmPassword) {
+            alert("All fields are required!");
+            return;
+        }
+
+        setUser({ email });
+
+        // Redirect to the home page
+        navigate("/");
+    }
     return (
-        // < !--Register Page(Only for Guest users ) -->
+        <>
+        {user && <p>Welcome, {user.email}!</p>}
+        {/* Register Page(Only for Guest users ) */}
         <section id="register-page" className="content auth">
-            <form id="register">
+            <form id="register" onSubmit={rgisterHandler}>
                 <div className="container">
                     <div className="brand-logo"></div>
                     <h1>Register</h1>
@@ -21,5 +54,6 @@ export default function Register() {
                 </div>
             </form>
         </section>
+        </>
     );
 }
