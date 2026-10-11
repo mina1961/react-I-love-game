@@ -15,6 +15,7 @@ function App() {
     const userAouthHandler = (userData) => {
         setUser(userData);
     }
+    
     return (
         <>
             <Header isAuthenticated={!!user} user={user} onLogout={() => setUser(null)} />
