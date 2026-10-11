@@ -2,13 +2,29 @@ import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router";
 import request from "../../util/request";
 
+const initialValues = {
+    title: "",
+    genre: "",
+    activePlayers: "",
+    releaseDate: "",
+    imageUrl: "",
+    summary: ""
+};
+
 export default function GameEdit() {
 
 const { gameId } = useParams();
 
 const navigate = useNavigate();
 
-const [game, setGame] = useState(null);
+const [game, setGame] = useState(initialValues);
+
+const changehandler = (e) => {
+        setGame(state => ({
+            ...state,
+            [e.target.name]: e.target.value
+        }));
+    };
 
 useEffect(() => {
     request(`/games?id=eq.${gameId}`)
@@ -56,32 +72,32 @@ async function editGameHandler(e) {
 
                     <div className="form-group-half">
                         <label htmlFor="gameName">Game Name:</label>
-                        <input type="text" id="gameName" name="gameName" placeholder="Enter game title..." defaultValue={game.title} />
+                        <input type="text" id="gameName" name="title" placeholder="Enter game title..." defaultValue={game.title} onChange={changehandler} />
                     </div>
 
                     <div className="form-group-half">
                         <label htmlFor="genre">Genre:</label>
-                        <input type="text" id="genre" name="genre" placeholder="Enter game genre..." defaultValue={game.genre} />
+                        <input type="text" id="genre" name="genre" placeholder="Enter game genre..." defaultValue={game.genre} onChange={changehandler} />
                     </div>
 
                     <div className="form-group-half">
                         <label htmlFor="activePlayers">Active Players:</label>
-                        <input type="number" id="activePlayers" name="activePlayers" min="0" placeholder="0" defaultValue={game.activePlayers} />
+                        <input type="number" id="activePlayers" name="activePlayers" min="0" placeholder="0" defaultValue={game.activePlayers} onChange={changehandler} />
                     </div>
 
                     <div className="form-group-half">
                         <label htmlFor="releaseDate">Release Date:</label>
-                        <input type="date" id="releaseDate" name="releaseDate" defaultValue={game.releaseDate} />
+                        <input type="date" id="releaseDate" name="releaseDate" defaultValue={game.releaseDate} onChange={changehandler} />
                     </div>
 
                     <div className="form-group-full">
                         <label htmlFor="imageUrl">Image URL:</label>
-                        <input type="text" id="imageUrl" name="imageUrl" placeholder="Enter image URL..." defaultValue={game.imageUrl} />
+                        <input type="text" id="imageUrl" name="imageUrl" placeholder="Enter image URL..." defaultValue={game.imageUrl} onChange={changehandler} />
                     </div>
 
                     <div className="form-group-full">
                         <label htmlFor="summary">Summary:</label>
-                        <textarea name="summary" id="summary" rows="5" placeholder="Write a brief summary..." defaultValue={game.summary}></textarea>
+                        <textarea name="summary" id="summary" rows="5" placeholder="Write a brief summary..." defaultValue={game.summary} onChange={changehandler}></textarea>
                     </div>
 
                     <input className="btn submit" type="submit" value="EDIT GAME" />
