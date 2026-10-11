@@ -1,8 +1,9 @@
-import { useState } from "react";
 import { useNavigate } from "react-router";
-export default function Register() {
+export default function Register({
+     onRegister,
+     }) {
 
-    const [user, setUser] = useState(null);
+    
     const navigate = useNavigate();
     const rgisterAction =(formData) => {
         // Prevent the default form submission behavior
@@ -26,14 +27,14 @@ export default function Register() {
             return;
         }
 
-        setUser({ email });
+        onRegister({ email });
 
         // Redirect to the home page
-        // navigate("/");
+        navigate("/");
     }
     return (
         <>
-        {user && <p>Welcome, {user.email}!</p>}
+        
         {/* Register Page(Only for Guest users ) */}
         <section id="register-page" className="content auth">
             <form id="register" action={rgisterAction}>
