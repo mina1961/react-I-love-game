@@ -20,7 +20,7 @@ export default async function request(path = "/", method = "GET", data = null, o
     if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
     }
-    if (response.status === 204) {
+    if ([204, 201].includes(response.status)) {
         return null;
     }
     return await response.json();
